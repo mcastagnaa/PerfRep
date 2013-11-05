@@ -1,0 +1,6 @@
+USE PerfRep
+GO
+
+
+ALTER TABLE tbl_Products
+ADD IsSelect Bit DEFAULT 0 NOT NULL
