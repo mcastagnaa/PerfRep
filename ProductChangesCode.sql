@@ -3,7 +3,7 @@ USE PerfRep;
 --TO DO
 
 DECLARE @TodayDate datetime
-SET @TodayDate = datediff(day,0,getdate())
+SET @TodayDate = '2013 Nov 8'--datediff(day,0,getdate())
 ------------------------------------
 --== Type 1: Name change ==--
 SELECT	* 
@@ -35,7 +35,7 @@ GO
 --== Type 2: Merge/CloseOut ==--
 
 DECLARE @TodayDate datetime
-SET @TodayDate = datediff(day,0,getdate())
+SET @TodayDate =  '2013 Nov 8'-- datediff(day,0,getdate())
 
 SELECT	* 
 INTO	#Changes
@@ -66,7 +66,7 @@ GO
 --== Type 3: Change of PM/Team ==--
 
 DECLARE @TodayDate datetime
-SET @TodayDate = datediff(day,0,getdate())
+SET @TodayDate =  '2013 Nov 8'--datediff(day,0,getdate())
 
 SELECT	* 
 INTO	#Changes
@@ -102,7 +102,7 @@ GO
 --== Type 4: Change of SoldAStype (umbrella implicitely) ==--
 
 DECLARE @TodayDate datetime
-SET @TodayDate = datediff(day,0,getdate())
+SET @TodayDate =  '2013 Nov 8'--datediff(day,0,getdate())
 
 SELECT	* 
 INTO	#Changes
@@ -133,7 +133,7 @@ GO
 --== Type 5: Change of Benchmark ==--
 
 DECLARE @TodayDate datetime
-SET @TodayDate = datediff(day,0,getdate())
+SET @TodayDate =  '2013 Nov 8'--datediff(day,0,getdate())
 
 SELECT	* 
 INTO	#Changes

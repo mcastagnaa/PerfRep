@@ -38,6 +38,8 @@ SELECT	P.Id AS FundId
 		, P.OurTeam AS DeskCode
 		, P.OurPM AS PM
 		, P.FundName
+		, P.SoldAs AS Vehicle
+		, P.IsSelect
 		, CTE.RefDate
 		, ISNULL(Last.AuMGBP, 0)  AS LastAuM
 		, CTE.PrevDate
@@ -48,6 +50,25 @@ SELECT	P.Id AS FundId
 				ELSE (Last.AuMGBP/Prev.AuMGBP - 1)
 				END) AS DiffPerc
 		, Perf.NP1m/100 AS FundPerf
+
+		, Perf.NP3m/100 AS AbsPerf3m
+		, Perf.NP6m/100 AS AbsPerf6m
+		, Perf.NP1y/100 AS AbsPerf1y
+		, Perf.NP2y/100 AS AbsPerf2y
+		, Perf.NP3y/100 AS AbsPerf3y
+
+		, (Perf.NP3m-Perf.Ben3m)/100 AS RelPerf3m
+		, (Perf.NP6m-Perf.Ben6m)/100 AS RelPerf6m
+		, (Perf.NP1y-Perf.Ben1y)/100 AS RelPerf1y
+		, (Perf.NP2y-Perf.Ben2y)/100 AS RelPerf2y
+		, (Perf.NP3y-Perf.Ben3y)/100 AS RelPerf3y
+
+		, (CAST(Perf.ProdRank3m AS FLOAT)/Perf.PeersNo3m) AS Rank3m
+		, (CAST(Perf.ProdRank6m AS FLOAT)/Perf.PeersNo6m) AS Rank6m
+		, (CAST(Perf.ProdRank1y AS FLOAT)/Perf.PeersNo1y) AS Rank1y
+		, (CAST(Perf.ProdRank2y AS FLOAT)/Perf.PeersNo2y) AS Rank2y
+		, (CAST(Perf.ProdRank3y AS FLOAT)/Perf.PeersNo3y) AS Rank3y
+
 		, ISNULL(Last.AuMGBP,0)/NULLIF(Prev.AuMGBP,0) - 1 - Perf.NP1m/100
 				AS NCCFEstimate
 		, (CASE WHEN Last.AuMGBP IS NULL THEN -Prev.AuMGBP
@@ -66,8 +87,8 @@ FROM 	Dates_CTE AS CTE LEFT JOIN
 			(CTE.ShortCode = P.ShortCode) 
 		JOIN tbl_Desks AS D ON
 			(P.OurTeam = D.Code)
-		LEFT JOIN tbl_FundsPerfs AS Perf ON (
-			P.id = Perf.Fundid
+		LEFT JOIN vw_AllPerfDataset AS Perf ON ( --tbl_FundsPerfs
+			P.id = Perf.id
 			AND CTE.RefDate = Perf.RefDate
 			)
 WHERE	(Last.AuMGBP IS NOT NULL OR Prev.AuMGBP IS NOT NULL)
