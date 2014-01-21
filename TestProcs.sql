@@ -5,7 +5,7 @@ USE PerfRep
 --SELECT * FROM vw_AllPeersDefs
 --SELECT * FROM vw_AllDYFields
 
---EXEC dbo.spS_GetPerfRawData '2013 Mar 31', 1, null, null
+--EXEC dbo.spS_GetPerfRawData '2013 Oct 31', 1, null, null
 --EXEC dbo.spS_GetPerfRawData_FundsOnly '2012 Nov 30', 1, null, null
 --EXEC dbo.spS_GetQuartilePerfData '2013 Mar 31', 1, null, null
 --EXEC dbo.spS_GetQuartilePerfDataRaw '2012 Dec 31'
@@ -33,10 +33,10 @@ USE PerfRep
 --EXEC spS_GetTCFBench '2012 Sep 30'
 --EXEC spS_GetTCFPeerTest '2013 Mar 31'
 --EXEC spS_GetTCFPeer '2013 Mar 31'
-EXEC spS_GetTCFObj '2013 Oct 31'
+--EXEC spS_GetTCFObj '2013 Oct 31'
 --EXEC spS_GetPerf1mDataByFund '2013 Jan 31', 157
 
---EXEC dbo.spU_StoreCEORepRawData '2013 May 31'
+--EXEC dbo.spU_StoreCEORepRawData '2013 Nov 30'
 --EXEC dbo.spS_GetCEOAuMOverall '2013 Apr 30'
 --EXEC dbo.spS_GetCEOPerfAll '2013 Apr 30'
 --EXEC dbo.spS_GetCEOPerfDesk '2013 May 31'
@@ -48,7 +48,7 @@ EXEC spS_GetTCFObj '2013 Oct 31'
 --EXEC dbo.spS_GetAuMsAll '2013 Jun 30'
 --EXEC dbo.spS_CheckFinanceAuMData '2013 May 31'
 
---EXEC dbo.spS_GetDashboardRiskRep '2013 Mar 6', 3
+-- THIS HAS BEEN MOVED TO VIVALDI! EXEC dbo.spS_GetDashboardRiskRep '2013 Nov 27', 3
 --EXEC dbo.spS_GetDashboardRiskRepSMALL '2013 May 30', 3
 
 --SELECT dbo.fn_GetQuartile(1.01, 1)  -- 0 returns 5, 1 returns NULL
@@ -56,5 +56,6 @@ EXEC spS_GetTCFObj '2013 Oct 31'
 --EXEC spU_StoreNCCFRepRawData
 --EXEC dbo.spS_AddedChartsNCCFRep '2013/May/31', 317
 --EXEC dbo.spS_ScopeNCCFRep '2013/jun/30'
+EXEC dbo.spS_NCCFRollingStats '2013/Dec/31', 0
 
 --EXEC dbo.spS_GetShortPerfRep '2013/May/31', null, 0

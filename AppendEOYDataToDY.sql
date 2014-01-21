@@ -2,7 +2,7 @@ USE PerfRep
 GO
 
 DECLARE @RefDate datetime
-SET @RefDate = '2012 Dec 31'
+SET @RefDate = '2013 Dec 31'
 
 DELETE
 FROM tbl_BenchPerfsDY

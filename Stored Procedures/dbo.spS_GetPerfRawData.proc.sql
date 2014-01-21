@@ -39,7 +39,7 @@ SELECT	Id
 , InvManager
 , OurTeam
 , OurPM
-, OurAnalyst
+--, OurAnalyst
 , SoldAs
 , InAs
 , IUProduct
@@ -106,22 +106,22 @@ SELECT	Id
 , (ProdTER + NPEo2y_TD_a)/100 AS GPEo2y_TD_a
 , (ProdTER + NPEo3y_TD_a)/100 AS GPEo3y_TD_a
 , (ProdTER + NP_SI_a)/100 AS GP_SI_a
-, ProdRank1m
-, ProdRank3m
-, ProdRank6m
-, ProdRank1y
-, ProdRank2y
-, ProdRank3y
-, ProdRank5y
-, ProdRankYtD
-, [ProdRanky-1]
-, [ProdRanky-2]
-, [ProdRanky-3]
-, [ProdRanky-4]
-, [ProdRanky-5]
-, ProdRankEo2y_TD
-, ProdRankEo3y_TD
-, ProdRank_SI
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRank1m ELSE ProdRank1m END) AS ProdRank1m
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRank3m ELSE ProdRank3m END) AS ProdRank3m
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRank6m ELSE ProdRank6m END) AS ProdRank6m
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRank1y ELSE ProdRank1y END) AS ProdRank1y
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRank2y ELSE ProdRank2y END) AS ProdRank2y
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRank3y ELSE ProdRank3y END) AS ProdRank3y
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRank5y ELSE ProdRank5y END) AS ProdRank5y
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRankYtD ELSE ProdRankYtD END) AS ProdRankYtD
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN [ProdIRRanky-1] ELSE [ProdRanky-1] END) AS [ProdRanky-1]
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN [ProdIRRanky-2] ELSE [ProdRanky-2] END) AS [ProdRanky-2]
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN [ProdIRRanky-3] ELSE [ProdRanky-3] END) AS [ProdRanky-3]
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN [ProdIRRanky-4] ELSE [ProdRanky-4] END) AS [ProdRanky-4]
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN [ProdIRRanky-5] ELSE [ProdRanky-5] END) AS [ProdRanky-5]
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRankEo2y_TD ELSE ProdRankEo2y_TD END) AS ProdRankEo2y_TD
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRankEo2y_TD ELSE ProdRankEo3y_TD END) AS ProdRankEo3y_TD
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRank_SI ELSE ProdRank_SI END) AS ProdRank_SI
 , Ben1m/ 100 AS Ben1m
 , Ben3m/100 AS Ben3m
 , Ben6m/100 AS Ben6m
@@ -144,22 +144,22 @@ SELECT	Id
 , BenEo3y_TD_a/100 AS BenEo3y_TD_a
 , Ben_SI/100 AS Ben_SI
 , Ben_SI_a/100 AS Ben_SI_a
-, PeersNo1m
-, PeersNo3m
-, PeersNo6m
-, PeersNo1y
-, PeersNo2y
-, PeersNo3y
-, PeersNo5y
-, PeersNoYtD
-, [PeersNoy-1]
-, [PeersNoy-2]
-, [PeersNoy-3]
-, [PeersNoy-4]
-, [PeersNoy-5]
-, PeersNoEo2y_TD
-, PeersNoEo3y_TD
-, PeersNo_SI
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNum1m ELSE PeersNo1m END) AS PeersNo1m
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNum3m ELSE PeersNo3m END) AS PeersNo3m
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNum6m ELSE PeersNo6m END) AS PeersNo6m
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNum1y ELSE PeersNo1y END) AS PeersNo1y
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNum2y ELSE PeersNo2y END) AS PeersNo2y
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNum3y ELSE PeersNo3y END) AS PeersNo3y
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNum5y ELSE PeersNo5y END) AS PeersNo5y
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNumYtD ELSE PeersNoYtD END) AS PeersNoYtD
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN [PGIRNumy-1] ELSE [PeersNoy-1] END) AS [PeersNoy-1]
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN [PGIRNumy-2] ELSE [PeersNoy-2] END) AS [PeersNoy-2]
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN [PGIRNumy-3] ELSE [PeersNoy-3] END) AS [PeersNoy-3]
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN [PGIRNumy-4] ELSE [PeersNoy-4] END) AS [PeersNoy-4]
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN [PGIRNumy-5] ELSE [PeersNoy-5] END) AS [PeersNoy-5]
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNumEo2y_TD ELSE PeersNoEo2y_TD END) AS PeersNoEo2y_TD
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNumEo3y_TD ELSE PeersNoEo3y_TD END) AS PeersNoEo3y_TD
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNum_SI ELSE PeersNo_SI END) AS PeersNo_SI
 /*, (CASE WHEN ProdRank1m IS NULL THEN NULL ELSE PeersNo1m END) AS PeersNo1m
 , (CASE WHEN ProdRank3m IS NULL THEN NULL ELSE PeersNo3m END) AS PeersNo3m
 , (CASE WHEN ProdRank6m IS NULL THEN NULL ELSE PeersNo6m END) AS PeersNo6m
@@ -264,6 +264,55 @@ SELECT	Id
 , PGmed_rEo3y_TD_a/100 AS PGmed_rEo3y_TD_a
 , PGmed_r_SI/100 AS PGmed_r_SI
 , PGmed_r_SI_a/100 AS PGmed_r_SI_a
+, ProdIR1m
+, ProdIR3m
+, ProdIR6m
+, ProdIRYtD
+, ProdIR1y
+, ProdIR2y
+, ProdIR3y
+, ProdIR5y
+, [ProdIRy-1]
+, [ProdIRy-2]
+, [ProdIRy-3]
+, [ProdIRy-4]
+, [ProdIRy-5]
+, ProdIREo2y_TD
+, ProdIREo3y_TD
+, ProdIR_SI
+/*, ProdIRRank1m
+, ProdIRRank3m
+, ProdIRRank6m
+, ProdIRRankYtD
+, ProdIRRank1y
+, ProdIRRank2y
+, ProdIRRank3y
+, ProdIRRank5y
+, [ProdIRRanky-1]
+, [ProdIRRanky-2]
+, [ProdIRRanky-3]
+, [ProdIRRanky-4]
+, [ProdIRRanky-5]
+, ProdIRRankEo2y_TD
+, ProdIRRankEo3y_TD
+, ProdIRRank_SI
+, PGIRNum1m
+, PGIRNum3m
+, PGIRNum6m
+, PGIRNumYtD
+, PGIRNum1y
+, PGIRNum2y
+, PGIRNum3y
+, PGIRNum5y
+, [PGIRNumy-1]
+, [PGIRNumy-2]
+, [PGIRNumy-3]
+, [PGIRNumy-4]
+, [PGIRNumy-5]
+, PGIRNumEo2y_TD
+, PGIRNumEo3y_TD
+, PGIRNum_SI
+*/
 
 FROM	vw_AllPerfDataset AS DSet
 

@@ -24,28 +24,28 @@ SET NOCOUNT ON;
 
 CREATE TABLE #FullSet(
 	Id Integer
-	,FundName 		nvarchar(150)
-	,ShortCode 		Nvarchar(20)
-	,Company 		NvarChar(15)
+	,FundName 			nvarchar(150)
+	,ShortCode 			Nvarchar(20)
+	,Company 			NvarChar(15)
 	,BaseCCYIso 		NvarChar(3)
-	,Inception 		Datetime
-	,LastPMChange	Datetime
-	,BenCode  		NvarChar(15)
-	,BenName 		NvarChar(100)
+	,Inception 			Datetime
+	,LastPMChange		Datetime
+	,BenCode  			NvarChar(15)
+	,BenName 			NvarChar(100)
 	,PrimaryObj 		NvarChar(50)
 	,InvManager 		NvarChar(100)
-	,OurTeam 		NvarChar(100)
-	,OurPM 			NVarChar(100)
+	,OurTeam 			NvarChar(100)
+	,OurPM 				NVarChar(100)
 	,OurAnalyst 		NVarChar(100)
-	,SoldAs 		NvarChar(100)
-	,InAs 			NvarChar(100)
-	,IUProduct 		NvarChar(50)
+	,SoldAs 			NvarChar(100)
+	,InAs 				NvarChar(100)
+	,IUProduct 			NvarChar(50)
 	,Classification 	NvarChar(100)
-	,PeerGroup 		NvarChar(100)
+	,PeerGroup 			NvarChar(100)
 	,PeerGroupLabel 	NvarChar(100)
-	,RefDate 		Datetime
+	,RefDate 			Datetime
 	,LastBusinessDay 	Datetime
-	,AuM 			float
+	,AuM 				float
 	,ProdTER 		float
 	,NP1m 			float
 	,NP3m 			float
@@ -90,7 +90,7 @@ CREATE TABLE #FullSet(
 	,GP5y_a 		float
 	,GPEo2y_TD_a 		float
 	,GPEo3y_TD_a 		float
-	,GP_SI_a 		float
+	,GP_SI_a 			float
 	,ProdRank1m 		float
 	,ProdRank3m 		float
 	,ProdRank6m 		float
@@ -107,35 +107,35 @@ CREATE TABLE #FullSet(
 	,ProdRankEo2y_TD 	float
 	,ProdRankEo3y_TD 	float
 	,ProdRank_SI 		float
-	,Ben1m 			float
-	,Ben3m 			float
-	,Ben6m 			float
-	,Ben1y 			float
-	,Ben2y 			float
-	,Ben3y 			float
-	,Ben5y 			float
-	,BenYtD 		float
-	,[Beny-1] 		float
-	,[Beny-2] 		float
-	,[Beny-3] 		float
-	,[Beny-4] 		float
-	,[Beny-5] 		float
+	,Ben1m 				float
+	,Ben3m 				float
+	,Ben6m 				float
+	,Ben1y 				float
+	,Ben2y 				float
+	,Ben3y 				float
+	,Ben5y 				float
+	,BenYtD 			float
+	,[Beny-1] 			float
+	,[Beny-2] 			float
+	,[Beny-3] 			float
+	,[Beny-4] 			float
+	,[Beny-5] 			float
 	,BenEo2y_TD 		float
 	,BenEo3y_TD 		float
-	,Ben2y_a 		float
-	,Ben3y_a 		float
-	,Ben5y_a 		float
+	,Ben2y_a 			float
+	,Ben3y_a 			float
+	,Ben5y_a 			float
 	,BenEo2y_TD_a 		float
 	,BenEo3y_TD_a 		float
-	,Ben_SI			float
-	,Ben_SI_a 		float
-	,PeersNo1m 		float
-	,PeersNo3m 		float
-	,PeersNo6m 		float
-	,PeersNo1y 		float
-	,PeersNo2y 		float
-	,PeersNo3y 		float
-	,PeersNo5y 		float
+	,Ben_SI				float
+	,Ben_SI_a 			float
+	,PeersNo1m 			float
+	,PeersNo3m 			float
+	,PeersNo6m 			float
+	,PeersNo1y 			float
+	,PeersNo2y 			float
+	,PeersNo3y 			float
+	,PeersNo5y 			float
 	,PeersNoYtD 		float
 	,[PeersNoy-1] 		float
 	,[PeersNoy-2] 		float
@@ -189,13 +189,13 @@ CREATE TABLE #FullSet(
 	,PG3stQ_rEo3y_TD_a 	float
 	,PG3stQ_r_SI 		float
 	,PG3stQ_r_SI_a 		float
-	,PGavg_r1m 		float
-	,PGavg_r3m 		float
-	,PGavg_r6m 		float
-	,PGavg_r1y 		float
-	,PGavg_r2y 		float
-	,PGavg_r3y 		float
-	,PGavg_r5y 		float
+	,PGavg_r1m 			float
+	,PGavg_r3m 			float
+	,PGavg_r6m 			float
+	,PGavg_r1y 			float
+	,PGavg_r2y 			float
+	,PGavg_r3y 			float
+	,PGavg_r5y 			float
 	,PGavg_rYtD 		float
 	,[PGavg_ry-1] 		float
 	,[PGavg_ry-2] 		float
@@ -211,13 +211,13 @@ CREATE TABLE #FullSet(
 	,PGavg_rEo3y_TD_a 	float
 	,PGavg_r_SI 		float
 	,PGavg_r_SI_a 		float
-	,PGmed_r1m 		float
-	,PGmed_r3m 		float
-	,PGmed_r6m 		float
-	,PGmed_r1y 		float
-	,PGmed_r2y 		float
-	,PGmed_r3y 		float
-	,PGmed_r5y 		float
+	,PGmed_r1m 			float
+	,PGmed_r3m 			float
+	,PGmed_r6m 			float
+	,PGmed_r1y 			float
+	,PGmed_r2y 			float
+	,PGmed_r3y 			float
+	,PGmed_r5y 			float
 	,PGmed_rYtD 		float
 	,[PGmed_ry-1] 		float
 	,[PGmed_ry-2] 		float
@@ -231,8 +231,24 @@ CREATE TABLE #FullSet(
 	,PGmed_r5y_a 		float
 	,PGmed_rEo2y_TD_a	float
 	,PGmed_rEo3y_TD_a	float
-	,PGmed_r_SI		float
+	,PGmed_r_SI			float
 	,PGmed_r_SI_a		float
+	, ProdIR1m			float
+	, ProdIR3m			float
+	, ProdIR6m			float
+	, ProdIRYtD			float
+	, ProdIR1y			float
+	, ProdIR2y			float
+	, ProdIR3y			float
+	, ProdIR5y			float
+	, [ProdIRy-1]		float
+	, [ProdIRy-2]		float
+	, [ProdIRy-3]		float
+	, [ProdIRy-4]		float
+	, [ProdIRy-5]		float
+	, ProdIREo2y_TD		float
+	, ProdIREo3y_TD		float
+	, ProdIR_SI			float
 )
 
 -------------------------------------------------------------------

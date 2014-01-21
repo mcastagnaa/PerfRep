@@ -29,18 +29,31 @@ SET @FirstDate = Dateadd(mm, - @LookBack, @RefDate)
 */
 
 ----------------------------------------------------------------------
+--== Clean up SIG/Factset data --==
+SELECT *
+INTO #FactsetSet
+FROM [OMAMPROD01].[Product].dbo.vew_FSR_FacstetDailyRisk
+WHERE	NavDate <= @RefDate
+		AND NavDate >= @FirstDate
+-- cleanup clauses
+		AND [Portfolio VAR] < 50
+		AND FundCode not in ('SKEUREQ', 'SKGBLBND', 'SKUSCAPGR', 'SKJPNEQ')
+
+----------------------------------------------------------------------
 --== THE DATES BIT SIG ==--
 SELECT	V.FundCode
 		, MAX(NAVDate) AS LastDate
 INTO	#LDatesSIG
-FROM	[OMAMPROD01].[Product].dbo.vew_FSR_FacstetDailyRisk AS V 
+FROM	#FactsetSet AS V 
+--FROM	[OMAMPROD01].[Product].dbo.vew_FSR_FacstetDailyRisk AS V 
 WHERE		V.NaVDate <= @RefDate
 GROUP BY	V.FundCode
 
 SELECT	V.FundCode
 		, MAX(NAVDate) AS PrevDate
 INTO	#PDatesSIG
-FROM	[OMAMPROD01].[Product].dbo.vew_FSR_FacstetDailyRisk AS V FULL JOIN
+FROM	#FactsetSet AS V FULL JOIN
+--FROM	[OMAMPROD01].[Product].dbo.vew_FSR_FacstetDailyRisk AS V FULL JOIN
 		#LDatesSIG AS L ON (
 			V.FundCode = L.FundCode
 		)
@@ -66,6 +79,7 @@ WHERE		V.VaRDate < L.LastDate
 GROUP BY	V.FundId	
 
 ----------------------------------------------------------------------
+
 --== LAST VALUES SIG ==--
 
 SELECT	V.FundCode
@@ -75,7 +89,8 @@ SELECT	V.FundCode
 		, V.[Net Weight]/100 AS NetExp
 		, L.LastDate
 INTO	#LastVaRSIG
-FROM	[PRODUCT].dbo.vew_FSR_FacstetDailyRisk AS V FULL JOIN
+FROM	#FactsetSet AS V FULL JOIN
+--FROM	[PRODUCT].dbo.vew_FSR_FacstetDailyRisk AS V FULL JOIN
 		#LDatesSIG AS L ON (
 			V.NaVDate = L.LastDate
 			AND V.FundCode = L.FundCode
@@ -90,7 +105,8 @@ SELECT	V.FundCode
 		, V.[Net Weight]/100 AS NetExp
 		, L.PrevDate
 INTO	#PrevVaRSIG
-FROM	[PRODUCT].dbo.vew_FSR_FacstetDailyRisk AS V FULL JOIN
+FROM	#FactsetSet AS V FULL JOIN
+--FROM	[PRODUCT].dbo.vew_FSR_FacstetDailyRisk AS V FULL JOIN
 		#PDatesSIG AS L ON (
 			V.NaVDate = L.PrevDate
 			AND V.FundCode = L.FundCode
@@ -114,7 +130,7 @@ FROM	[VIVALDI].dbo.vw_TotalVaRByFundByDate AS V FULL JOIN
 			V.VaRDate = B.ReportDate
 			AND V.FundId = B.FundId 
 			) LEFT JOIN
-		[OMAMPROD01].[VIVALDI].dbo.tbl_FundsNaVsAndPLs AS E ON (
+		[VIVALDI].dbo.tbl_FundsNaVsAndPLs AS E ON (
 			V.VaRDate = E.NaVPLDate
 			AND V.FundID = E.FundId
 			)
@@ -172,7 +188,8 @@ SELECT	V.FundCode
 					V.[Portfolio Gross Return] THEN 1 
 					ELSE 0 END) AS VaREventsPos*/
 INTO	#PerSIG
-FROM	[Product].dbo.vew_FSR_FacstetDailyRisk AS V
+FROM	#FactsetSet AS V
+--FROM	[Product].dbo.vew_FSR_FacstetDailyRisk AS V
 WHERE		V.NaVDate <= @RefDate
 			AND V.NaVDate > @FirstDate
 GROUP BY	V.FundCode
@@ -368,12 +385,15 @@ FROM	tbl_Products AS Prod LEFT JOIN
 		)
 WHERE	Prod.InceptionDate < @RefDate
 		AND ISNULL(Prod.CloseDate,GetDate()) > @RefDate
+		AND FS.VaRMODEL IS NOT NULL
 
-ORDER BY	IsSelect
+
+ORDER BY	Prod.ShortCode
+/*ORDER BY	IsSelect
 			, Prod.OurTeam
 			, Prod.OurPM
 			, Prod.SoldAs
-
+*/
 ----------------------------------------------------------------------
 --== TESTS ==--
 --SELECT * FROM #LDatesOMAM
@@ -399,6 +419,7 @@ DROP TABLE #PrevVaROMAM
 DROP TABLE #PerSIG
 DROP TABLE #PerOMAM
 DROP TABLE #FullSet
+DROP TABLE #FactsetSet
 
 -----------------------------------------------------------------
 

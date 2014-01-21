@@ -40,6 +40,7 @@ SELECT	P.Id AS FundId
 		, P.FundName
 		, P.SoldAs AS Vehicle
 		, P.IsSelect
+		, P.AssetClass
 		, CTE.RefDate
 		, ISNULL(Last.AuMGBP, 0)  AS LastAuM
 		, CTE.PrevDate
@@ -50,19 +51,21 @@ SELECT	P.Id AS FundId
 				ELSE (Last.AuMGBP/Prev.AuMGBP - 1)
 				END) AS DiffPerc
 		, Perf.NP1m/100 AS FundPerf
-
+		, Perf.NP1m/100 AS AbsPerf1m
 		, Perf.NP3m/100 AS AbsPerf3m
 		, Perf.NP6m/100 AS AbsPerf6m
 		, Perf.NP1y/100 AS AbsPerf1y
 		, Perf.NP2y/100 AS AbsPerf2y
 		, Perf.NP3y/100 AS AbsPerf3y
 
+		, (Perf.NP1m-Perf.Ben1m)/100 AS RelPerf1m
 		, (Perf.NP3m-Perf.Ben3m)/100 AS RelPerf3m
 		, (Perf.NP6m-Perf.Ben6m)/100 AS RelPerf6m
 		, (Perf.NP1y-Perf.Ben1y)/100 AS RelPerf1y
 		, (Perf.NP2y-Perf.Ben2y)/100 AS RelPerf2y
 		, (Perf.NP3y-Perf.Ben3y)/100 AS RelPerf3y
 
+		, (CAST(Perf.ProdRank1m AS FLOAT)/Perf.PeersNo1m) AS Rank1m
 		, (CAST(Perf.ProdRank3m AS FLOAT)/Perf.PeersNo3m) AS Rank3m
 		, (CAST(Perf.ProdRank6m AS FLOAT)/Perf.PeersNo6m) AS Rank6m
 		, (CAST(Perf.ProdRank1y AS FLOAT)/Perf.PeersNo1y) AS Rank1y

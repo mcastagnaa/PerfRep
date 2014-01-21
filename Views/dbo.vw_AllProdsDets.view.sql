@@ -18,12 +18,53 @@ AS
 
 -------------------
 /* TO DO
-> get columns explicit otherwise View will fail for multiple columns with same name
 
 */
 -------------------
 
-SELECT	P.*
+SELECT	P.Id
+		, P.PublicId
+		, P.ShortCode
+		, P.FundName
+		, P.InvManager
+		, P.MStarCode
+		, P.MStarSPID
+		, P.BaseCCYiso
+		, P.ExternalPM
+		, P.Company
+		, P.IsMultiManager
+		, P.IsFoF
+		, P.HasOverlay
+		, P.InAs
+		, P.SoldAs
+		, P.IsUT
+		, P.PrimaryObj
+		, P.BenchmarkId
+		, P.Strategy
+		, P.Style
+		, P.AssetClass
+		, P.SubAssetClass
+		, P.SizeBias
+		, P.GeoFocus
+		, P.OurPM
+		, P.OurTeam
+		, P.OurAnalyst
+		, P.TPA
+		, P.InceptionDate
+		, P.CloseDate
+		, P.BonusPool
+		, P.CitiCode
+		, P.RefShClass
+		, P.LastPMChange
+		, P.SRRIcat
+		, P.FinanceName
+		, P.SelectRefISIN
+		, P.SelectRefMstar
+		, P.IsSelect
+		, P.IsSelectFull
+		, P.IsCore
+		, P.RiskLimitName
+		, P.RiskLimitValue
 		, B.Id AS BenchId
 		, B.Code AS BenchCode
 		, B.LongName AS BenchLN
