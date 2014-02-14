@@ -41,7 +41,7 @@ USE PerfRep
 --EXEC dbo.spS_GetCEOPerfAll '2013 Apr 30'
 --EXEC dbo.spS_GetCEOPerfDesk '2013 May 31'
 --EXEC dbo.spS_GetCEOCharts '2012 Dec 31'
---EXEC dbo.spS_GetCEOAuMTrack
+--EXEC dbo.spS_GetCEOAuMTrack '2014 Jan 31'
 --EXEC spS_GetCEOHistCharts '2013 Jun 30', null
 
 
@@ -56,6 +56,6 @@ USE PerfRep
 --EXEC spU_StoreNCCFRepRawData
 --EXEC dbo.spS_AddedChartsNCCFRep '2013/May/31', 317
 --EXEC dbo.spS_ScopeNCCFRep '2013/jun/30'
-EXEC dbo.spS_NCCFRollingStats '2013/Dec/31', 0
+EXEC dbo.spS_NCCFRollingStats '2014/Jan/31', 1
 
 --EXEC dbo.spS_GetShortPerfRep '2013/May/31', null, 0

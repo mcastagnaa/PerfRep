@@ -30,8 +30,10 @@ ELSE
 BEGIN
 	DECLARE @year int
 	SET @year = DATEPART(year, @RefDate)
-	SET @FirstDate = DATEADD(mm, @year-1900, 0)
+	SET @FirstDate = CAST(@Year AS nvarchar(4)) + '/Jan/31'
 END
+
+--SELECT @FirstDate
 
 ---------------------------------------------------------
 /*	TODO 

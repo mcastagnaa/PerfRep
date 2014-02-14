@@ -33,7 +33,7 @@ FROM (	SELECT	RefDate
 
 	FROM 	tbl_EoMPerfSummary
 	WHERE	RefDate <= @RefDate AND
-			RefDate >= DATEDIFF(mm, -36, @RefDate)) o
+			RefDate >= DATEADD(mm, -12, @RefDate)) o
 
 PIVOT (SUM(AuM) FOR OurTeam IN(	
 					[DiscEq]
