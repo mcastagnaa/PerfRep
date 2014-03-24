@@ -16,6 +16,8 @@ GO
 
 CREATE PROCEDURE dbo.spS_GetAuMsAll
 	@RefDate datetime
+	, @Offshore bit
+	, @Core bit
 AS
 
 DECLARE @PrevDate datetime
@@ -41,6 +43,9 @@ FROM	tbl_FinanceAuM AS AuM LEFT JOIN
 			AuM.ShortCode = P.ShortCode
 			)
 WHERE	RefDate = @RefDate
+		AND (@Offshore IS NULL OR P.SoldAs = 'UCITS4')
+		AND (@Core IS NULL OR P.IsCore = 1)
+
 GROUP BY	P.OurTeam, AuM.RefDate
 
 ------------------------------------------------
@@ -54,6 +59,9 @@ FROM	tbl_FinanceAuM AS AuM LEFT JOIN
 			AuM.ShortCode = P.ShortCode
 			)
 WHERE	RefDate = @PrevDate
+		AND (@Offshore IS NULL OR P.SoldAs = 'UCITS4')
+		AND (@Core IS NULL OR P.IsCore = 1)
+
 GROUP BY	P.OurTeam, AuM.RefDate
 
 ------------------------------------------------
@@ -67,6 +75,9 @@ FROM	tbl_FinanceAuM AS AuM LEFT JOIN
 			AuM.ShortCode = P.ShortCode
 			)
 WHERE	RefDate = @RefDate
+		AND (@Offshore IS NULL OR P.SoldAs = 'UCITS4')
+		AND (@Core IS NULL OR P.IsCore = 1)
+
 GROUP BY	P.SoldAs, AuM.RefDate
 
 ------------------------------------------------
@@ -80,6 +91,9 @@ FROM	tbl_FinanceAuM AS AuM LEFT JOIN
 			AuM.ShortCode = P.ShortCode
 			)
 WHERE	RefDate = @PrevDate
+		AND (@Offshore IS NULL OR P.SoldAs = 'UCITS4')
+		AND (@Core IS NULL OR P.IsCore = 1)
+
 GROUP BY	P.SoldAs, AuM.RefDate
 
 ------------------------------------------------

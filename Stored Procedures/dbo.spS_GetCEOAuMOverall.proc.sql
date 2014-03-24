@@ -16,6 +16,8 @@ GO
 
 CREATE PROCEDURE dbo.spS_GetCEOAuMOverall
 	@RefDate datetime
+	, @Offshore bit
+	, @Core bit
 AS
 
 DECLARE @PrevDate datetime
@@ -29,30 +31,27 @@ SET NOCOUNT ON;
 
 ------------------------------------------------
 
-/*FOR THE BOARD REPORT (DUBLIN) ACTIVATE THE OTHER FILTER
-THIS IS ALSO FOR spS_GetCEOPerfAll*/
-
-------------------------------------------------
-
-SELECT	*
+SELECT	Perf.*
 INTO	#Last
-FROM	tbl_EoMPerfSummary
+FROM	tbl_EoMPerfSummary AS Perf LEFT JOIN
+		tbl_Products AS Prod ON (Perf.FundId = Prod.Id)
 WHERE	RefDate = @RefDate
---		AND SoldAs = 'UCITS4'	-- This is where the UCITS4 selections starts
-								-- Take all those lines out to get the normal report
+		AND (@Offshore IS NULL OR Perf.SoldAs = 'UCITS4')
+		AND (@Core IS NULL OR Prod.IsCore = 1)
 
 ------------------------------------------------
 
-SELECT	*
+SELECT	Perf.*
 INTO	#Prev
-FROM	tbl_EoMPerfSummary
+FROM	tbl_EoMPerfSummary AS Perf LEFT JOIN
+		tbl_Products AS Prod ON (Perf.FundId = Prod.Id)
 WHERE	RefDate = @PrevDate
---		AND SoldAs = 'UCITS4'	-- This is where the UCITS4 selections starts
-								-- Take all those lines out to get the normal report
+		AND (@Offshore IS NULL OR Perf.SoldAs = 'UCITS4')
+		AND (@Core IS NULL OR Prod.IsCore = 1)
 
 ------------------------------------------------
 								-- Re-normalizing the weights
-								-- Relevant when you filter by something (e.g. UCITS4)
+								-- Relevant when you filter
 
 DECLARE @LastTotalAuMWeight float
 SET @LastTotalAuMWeight = (SELECT SUM(AuMWeight) FROM #Last)

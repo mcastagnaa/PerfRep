@@ -16,6 +16,8 @@ GO
 
 CREATE PROCEDURE dbo.spS_GetCEOCharts
 	@RefDate datetime
+	, @Offshore bit
+	, @Core bit
 AS
 
 SET NOCOUNT ON;
@@ -123,7 +125,7 @@ CREATE TABLE #AuMStats (
 -----------------------------------------------------------
 
 INSERT INTO #AuMStats
-EXEC dbo.spS_GetCEOAuMOverall @RefDate
+EXEC dbo.spS_GetCEOAuMOverall @RefDate, @Offshore, @Core
 
 -----------------------------------------------------------
 
@@ -181,11 +183,11 @@ CREATE TABLE #PerfStats (
 )
 
 INSERT INTO #PerfStats
-EXEC dbo.spS_GetCEOPerfAll @RefDate
+EXEC dbo.spS_GetCEOPerfAll @RefDate, @Offshore, @Core
 
 
 INSERT INTO #PerfStats
-EXEC dbo.spS_GetCEOPerfDesk @RefDate
+EXEC dbo.spS_GetCEOPerfDesk @RefDate, @Offshore, @Core
 
 ----------------------------------------------------
 SELECT	'Top2QCount_Ch' AS Item

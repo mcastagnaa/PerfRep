@@ -37,15 +37,15 @@ USE PerfRep
 --EXEC spS_GetPerf1mDataByFund '2013 Jan 31', 157
 
 --EXEC dbo.spU_StoreCEORepRawData '2013 Nov 30'
---EXEC dbo.spS_GetCEOAuMOverall '2013 Apr 30'
---EXEC dbo.spS_GetCEOPerfAll '2013 Apr 30'
---EXEC dbo.spS_GetCEOPerfDesk '2013 May 31'
---EXEC dbo.spS_GetCEOCharts '2012 Dec 31'
---EXEC dbo.spS_GetCEOAuMTrack '2014 Jan 31'
---EXEC spS_GetCEOHistCharts '2013 Jun 30', null
+EXEC dbo.spS_GetCEOAuMOverall '2014 Jan 31', null, null
+--EXEC dbo.spS_GetCEOPerfAll '2014 Jan 31', null, null
+--EXEC dbo.spS_GetCEOPerfDesk '2014 Jan 31', null, null
+--EXEC dbo.spS_GetCEOCharts '2014 Jan 31', null, null
+--EXEC dbo.spS_GetCEOAuMTrack '2014 Jan 31', null, null
+--EXEC spS_GetCEOHistCharts '2014 Jan 31', null
 
 
---EXEC dbo.spS_GetAuMsAll '2013 Jun 30'
+--EXEC dbo.spS_GetAuMsAll '2014 Jan 31', null, null
 --EXEC dbo.spS_CheckFinanceAuMData '2013 May 31'
 
 -- THIS HAS BEEN MOVED TO VIVALDI! EXEC dbo.spS_GetDashboardRiskRep '2013 Nov 27', 3
@@ -56,6 +56,6 @@ USE PerfRep
 --EXEC spU_StoreNCCFRepRawData
 --EXEC dbo.spS_AddedChartsNCCFRep '2013/May/31', 317
 --EXEC dbo.spS_ScopeNCCFRep '2013/jun/30'
-EXEC dbo.spS_NCCFRollingStats '2014/Jan/31', 1
+--EXEC dbo.spS_NCCFRollingStats '2014/Jan/31', 1
 
 --EXEC dbo.spS_GetShortPerfRep '2013/May/31', null, 0

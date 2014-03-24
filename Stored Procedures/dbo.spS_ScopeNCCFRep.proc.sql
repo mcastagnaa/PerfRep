@@ -39,6 +39,7 @@ WHERE	RefDate = @RefDate
 			'SKNEWMNG', 'SKGILT', 'SKUKINDX')
 		AND P.SelectRefISIN IS NULL
 		AND P.SoldAS NOT IN ('Mandate', 'HF')
+		AND P.InceptionDate < DATEADD(mm, -12, @RefDate)
 ORDER BY AuMGBP DESC
 
 -- ad-hoc

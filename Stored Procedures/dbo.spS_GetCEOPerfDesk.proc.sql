@@ -16,6 +16,8 @@ GO
 
 CREATE PROCEDURE dbo.spS_GetCEOPerfDesk
 	@RefDate datetime
+	, @Offshore bit
+	, @Core bit
 AS
 
 DECLARE @PrevDate datetime
@@ -27,19 +29,42 @@ SET NOCOUNT ON;
 
 ------------------------------------------------
 
-SELECT	*
+SELECT	Perf.*
 INTO	#Last
-FROM	tbl_EoMPerfSummary
+FROM	tbl_EoMPerfSummary AS Perf LEFT JOIN
+		tbl_Products AS Prod ON (Perf.FundId = Prod.Id)
 WHERE	RefDate = @RefDate
+		AND (@Offshore IS NULL OR Perf.SoldAs = 'UCITS4')
+		AND (@Core IS NULL OR Prod.IsCore = 1)
 
 ------------------------------------------------
 
-SELECT	*
+SELECT	Perf.*
 INTO	#Prev
-FROM	tbl_EoMPerfSummary
+FROM	tbl_EoMPerfSummary AS Perf LEFT JOIN
+		tbl_Products AS Prod ON (Perf.FundId = Prod.Id)
 WHERE	RefDate = @PrevDate
+		AND (@Offshore IS NULL OR Perf.SoldAs = 'UCITS4')
+		AND (@Core IS NULL OR Prod.IsCore = 1)
 
 ------------------------------------------------
+								-- Re-normalizing the weights
+								-- Relevant when you filter by something
+
+DECLARE @LastTotalAuMWeight float
+SET @LastTotalAuMWeight = (SELECT SUM(AuMWeight) FROM #Last)
+
+DECLARE @PrevTotalAuMWeight float
+SET @PrevTotalAuMWeight = (SELECT SUM(AuMWeight) FROM #Prev)
+
+UPDATE #Last
+SET		AumWeight = AuMWeight/@LastTotalAuMWeight
+
+UPDATE #Prev
+SET		AumWeight = AuMWeight/@PrevTotalAuMWeight
+
+------------------------------------------------
+
 SELECT	'Perf' AS Item
 	, OurTeam AS DeskGroup
 	, 'Peers' AS Objective

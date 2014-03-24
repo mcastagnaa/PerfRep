@@ -234,6 +234,23 @@ Id Integer
 ,PGmed_rEo3y_TD_a float
 ,PGmed_r_SI float
 ,PGmed_r_SI_a float
+, ProdIR1m			float
+	, ProdIR3m			float
+	, ProdIR6m			float
+	, ProdIRYtD			float
+	, ProdIR1y			float
+	, ProdIR2y			float
+	, ProdIR3y			float
+	, ProdIR5y			float
+	, [ProdIRy-1]		float
+	, [ProdIRy-2]		float
+	, [ProdIRy-3]		float
+	, [ProdIRy-4]		float
+	, [ProdIRy-5]		float
+	, ProdIREo2y_TD		float
+	, ProdIREo3y_TD		float
+	, ProdIR_SI			float
+
 )
 
 -------------------------------------------------------------------
