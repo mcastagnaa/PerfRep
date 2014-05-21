@@ -28,8 +28,6 @@ Which is going to be useless unless you want the offshore funds: in that case us
 @Select = 1 then only Select products (@SoldAs = null)
 */
 
-
-
 SET NOCOUNT ON;
 
 DECLARE @PrevDate datetime
@@ -76,8 +74,8 @@ FROM	vw_AllPerfDataset AS V LEFT JOIN
 			V.id = P.id
 			) LEFT JOIN
 		tbl_FinanceAuM AS F ON (
-			F.FinanceName = P.FinanceName
-			AND F.Company = P.Company
+			F.ShortCode = P.ShortCode
+			--AND F.Company = P.Company
 			AND V.RefDate = F.RefDate
 			) LEFT JOIN
 		tbl_Desks AS D ON (
@@ -86,11 +84,12 @@ FROM	vw_AllPerfDataset AS V LEFT JOIN
 		
 WHERE	V.RefDate = @RefDate
 		AND (V.CloseDate > @RefDate OR V.CloseDate IS NULL)
-		AND DATEDIFF(mm,V.Inception,@RefDate) > 1
+		AND DATEDIFF(mm,V.Inception,@RefDate) >= 1
 		AND	(V.SoldAs = @SoldAs OR @SoldAs IS NULL)
 		AND (V.IsSelect = @Select OR @Select IS NULL)
 		AND (P.IsCore = @Core OR @Core IS NULL)
 
+--SELECT * FROM #LAST
 
 SELECT	V.Id
 		, (V.NP1m - V.Ben1m) AS RelPerf1m
@@ -120,8 +119,8 @@ FROM	vw_AllPerfDataset AS V LEFT JOIN
 			V.id = P.id
 			) LEFT JOIN
 		tbl_FinanceAuM AS F ON (
-			F.FinanceName = P.FinanceName
-			AND F.Company = P.Company
+			F.ShortCode = P.ShortCode
+			--AND F.Company = P.Company
 			AND V.RefDate = F.RefDate
 			) 
 
@@ -131,7 +130,6 @@ WHERE	V.RefDate = @PrevDate
 		AND	(V.SoldAs = @SoldAs OR @SoldAs IS NULL)
 		AND (V.IsSelect = @Select OR @Select IS NULL)
 		AND (P.IsCore = @Core OR @Core IS NULL)
-
 
 
 SELECT	L.Id

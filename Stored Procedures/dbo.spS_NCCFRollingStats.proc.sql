@@ -32,13 +32,6 @@ BEGIN
 	SET @year = DATEPART(year, @RefDate)
 	SET @FirstDate = CAST(@Year AS nvarchar(4)) + '/Jan/31'
 END
-
---SELECT @FirstDate
-
----------------------------------------------------------
-/*	TODO 
-	Dynamical first date for YtD option
-*/
 ---------------------------------------------------------
 SELECT	RefDate
 		, ROW_NUMBER() OVER (ORDER BY RefDate ASC) AS Row
@@ -56,7 +49,6 @@ SELECT	MAX(RefDate) AS LastDate
 		, SUM(NCCFCash) AS NCCFgbp
 INTO	#Total
 FROM	#Monthly
-
 ---------------------------------------------------------
 SELECT	RefDate
 		, DeskCode AS Desk
@@ -76,22 +68,33 @@ SELECT	Desk
 INTO	#TotalDesk
 FROM	#MonthlyDesk
 GROUP BY Desk
-
 ---------------------------------------------------------
-
 SELECT	RefDate
 		, DeskCode AS Desk
 		, FundCode
 		, FundName 
-		, SUM(NCCFEstimCash)/nullif(SUM(PrevAuM),0) AS MonNCCF
-		, SUM(NCCFEstimCash) AS NCCFCash
+		--, SUM(NCCFEstimCash)/nullif(SUM(PrevAuM),0) AS MonNCCF
+		--, SUM(NCCFEstimCash) AS NCCFCash
+		, NCCFEstimCash/nullif(PrevAuM,0) AS MonNCCF
+		, NCCFEstimCash AS NCCFCash
 INTO	#MonthlyFund
 FROM	vw_EstimatedNCCF
 WHERE	RefDate >= @FirstDate
 		AND RefDate <= @RefDate
-GROUP BY RefDate, FundCode, DeskCode, FundName
-HAVING	SUM(NCCFEstimCash)/nullif(SUM(PrevAuM),0) > -1
+		--AND FundCode = 'SKNEWMNG'
+		AND ((NCCFEstimCash/nullif(PrevAuM,0) > -2)
+			OR PrevAuM = 0)
+--GROUP BY RefDate, FundCode, DeskCode, FundName, PrevAuM, NCCFEstimCash
+--HAVING	(NCCFEstimCash/nullif(PrevAuM,0) > -1)
+--		OR PrevAuM = 0
 ORDER BY RefDate
+
+------------------------
+-- Sort out funny %
+UPDATE #MonthlyFund
+SET MonNCCF = -0.9999999
+WHERE MonNCCF <= -1
+------------------------
 
 SELECT TOP 10 ROW_NUMBER() 
         OVER (ORDER BY SUM(NCCFCash) DESC) AS Row
@@ -105,9 +108,7 @@ INTO	#TotalFundCash
 FROM	#MonthlyFund
 GROUP BY FundCode, Desk, FundName
 ORDER BY SUM(NCCFCash) DESC
-
 ---------------------------------------------------------
-
 SELECT TOP 10 ROW_NUMBER() 
         OVER (ORDER BY EXP(SUM(LOG(1 + MonNCCF)))-1 DESC) AS Row
 		, FundCode
@@ -134,10 +135,7 @@ INTO	#TotalFundLoss
 FROM	#MonthlyFund
 GROUP BY FundCode, Desk, FundName
 ORDER BY SUM(NCCFCash) ASC
-
 ---------------------------------------------------------
-
-
 SELECT	1 AS Ordering
 		, CAST(Row AS Int) AS ItemOrdering
 		, 'Monthly' AS Item
