@@ -37,8 +37,8 @@ USE PerfRep
 --EXEC spS_GetPerf1mDataByFund '2013 Jan 31', 157
 
 --EXEC dbo.spU_StoreCEORepRawData '2013 Nov 30'
---EXEC dbo.spS_GetCEOAuMOverall '2014 Jan 31', null, null
---EXEC dbo.spS_GetCEOPerfAll '2014 Jan 31', null, null
+--EXEC dbo.spS_GetCEOAuMOverall '2014 Jun 30', null, null
+EXEC dbo.spS_GetCEOPerfAll '2014 Jun 30', null, null
 --EXEC dbo.spS_GetCEOPerfDesk '2014 Jan 31', null, null
 --EXEC dbo.spS_GetCEOCharts '2014 Jan 31', null, null
 --EXEC dbo.spS_GetCEOAuMTrack '2014 Jan 31', null, null
@@ -58,4 +58,5 @@ USE PerfRep
 --EXEC dbo.spS_ScopeNCCFRep '2013/jun/30'
 --EXEC dbo.spS_NCCFRollingStats '2014/Jan/31', 1
 
-EXEC dbo.spS_GetShortPerfRep '2014/Mar/31', null, 1, null
+--EXEC dbo.spS_GetShortPerfRep '2014/May/31', null, 0, null
+--date, SoldAs (null, nvarchar(10)), Select (null,0, 1), Core (null,0, 1)

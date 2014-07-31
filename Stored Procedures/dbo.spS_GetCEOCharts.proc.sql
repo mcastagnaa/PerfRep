@@ -305,7 +305,7 @@ SELECT	'Top2QAuMw_Ch' AS Item
 	, 'Last' AS Legend
 	, SUM(P.AuMW1m/NULLIF(A.QAuMW1m, 0)) AS [1m]
 	, SUM(P.AuMW3m/NULLIF(A.QAuMW3m, 0)) AS [3m]
-	, SUM(P.AuMWYtD/NULLIF(A.QAuMW3m, 0)) AS [YtD]
+	, SUM(P.AuMWYtD/NULLIF(A.QAuMWYtD, 0)) AS [YtD]
 	, SUM(P.AuMW1y/NULLIF(A.QAuMW1y, 0)) AS [1y]
 	, SUM(P.AuMW2y/NULLIF(A.QAuMW2y, 0)) AS [2y]
 	, SUM(P.AuMW3y/NULLIF(A.QAuMW3y, 0)) AS [3y]
@@ -322,7 +322,7 @@ SELECT	'Top2QAuMw_Ch' AS Item
 	, 'Previous' AS Legend
 	, SUM(P.PAuMW1m/NULLIF(A.PQAuMW1m, 0)) AS [1m]
 	, SUM(P.PAuMW3m/NULLIF(A.PQAuMW3m, 0)) AS [3m]
-	, SUM(P.PAuMWYtD/NULLIF(A.PQAuMW3m, 0)) AS [YtD]
+	, SUM(P.PAuMWYtD/NULLIF(A.PQAuMWYtD, 0)) AS [YtD]
 	, SUM(P.PAuMW1y/NULLIF(A.PQAuMW1y, 0)) AS [1y]
 	, SUM(P.PAuMW2y/NULLIF(A.PQAuMW2y, 0)) AS [2y]
 	, SUM(P.PAuMW3y/NULLIF(A.PQAuMW3y, 0)) AS [3y]
@@ -340,7 +340,7 @@ SELECT	'AheadAuMw_Ch' AS Item
 	, 'Last' AS Legend
 	, SUM(P.AuMW1m/NULLIF(A.BAuMW1m, 0)) AS [1m]
 	, SUM(P.AuMW3m/NULLIF(A.BAuMW3m, 0)) AS [3m]
-	, SUM(P.AuMWYtD/NULLIF(A.BAuMW3m, 0)) AS [YtD]
+	, SUM(P.AuMWYtD/NULLIF(A.BAuMWYtD, 0)) AS [YtD]
 	, SUM(P.AuMW1y/NULLIF(A.BAuMW1y, 0)) AS [1y]
 	, SUM(P.AuMW2y/NULLIF(A.BAuMW2y, 0)) AS [2y]
 	, SUM(P.AuMW3y/NULLIF(A.BAuMW3y, 0)) AS [3y]
@@ -357,7 +357,7 @@ SELECT	'AheadAuMw_Ch' AS Item
 	, 'Previous' AS Legend
 	, SUM(P.PAuMW1m/NULLIF(A.PBAuMW1m, 0)) AS [1m]
 	, SUM(P.PAuMW3m/NULLIF(A.PBAuMW3m, 0)) AS [3m]
-	, SUM(P.PAuMWYtD/NULLIF(A.PBAuMW3m, 0)) AS [YtD]
+	, SUM(P.PAuMWYtD/NULLIF(A.PBAuMWYtD, 0)) AS [YtD]
 	, SUM(P.PAuMW1y/NULLIF(A.PBAuMW1y, 0)) AS [1y]
 	, SUM(P.PAuMW2y/NULLIF(A.PBAuMW2y, 0)) AS [2y]
 	, SUM(P.PAuMW3y/NULLIF(A.PBAuMW3y, 0)) AS [3y]
@@ -375,7 +375,7 @@ SELECT	P.Qualifier+'AuMw' AS Item
 	, 'Last' AS Legend
 	, SUM(P.AuMW1m/NULLIF(A.BAuMW1m, 0)) AS [1m]
 	, SUM(P.AuMW3m/NULLIF(A.BAuMW3m, 0)) AS [3m]
-	, SUM(P.AuMWYtD/NULLIF(A.BAuMW3m, 0)) AS [YtD]
+	, SUM(P.AuMWYtD/NULLIF(A.BAuMWYtD, 0)) AS [YtD]
 	, SUM(P.AuMW1y/NULLIF(A.BAuMW1y, 0)) AS [1y]
 	, SUM(P.AuMW2y/NULLIF(A.BAuMW2y, 0)) AS [2y]
 	, SUM(P.AuMW3y/NULLIF(A.BAuMW3y, 0)) AS [3y]
@@ -392,7 +392,7 @@ SELECT	P.Qualifier+'AuMw' AS Item
 	, 'Previous' AS Legend
 	, SUM(P.PAuMW1m/NULLIF(A.PBAuMW1m, 0)) AS [1m]
 	, SUM(P.PAuMW3m/NULLIF(A.PBAuMW3m, 0)) AS [3m]
-	, SUM(P.PAuMWYtD/NULLIF(A.PBAuMW3m, 0)) AS [YtD]
+	, SUM(P.PAuMWYtD/NULLIF(A.PBAuMWYtD, 0)) AS [YtD]
 	, SUM(P.PAuMW1y/NULLIF(A.PBAuMW1y, 0)) AS [1y]
 	, SUM(P.PAuMW2y/NULLIF(A.PBAuMW2y, 0)) AS [2y]
 	, SUM(P.PAuMW3y/NULLIF(A.PBAuMW3y, 0)) AS [3y]
