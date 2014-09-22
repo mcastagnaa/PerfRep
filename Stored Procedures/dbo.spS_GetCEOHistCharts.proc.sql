@@ -138,6 +138,7 @@ WHERE	Prod.SelectRefISIN IS NULL
 		AND (Prod.OurTeam = @OurTeam OR @OurTeam IS NULL)
 		AND RefDate <= @RefDate
 --		AND Prod.SoldAS = 'UCITS4'
+--		AND Prod.IsCore = 1
 
 GROUP BY RefDate
 ORDER BY RefDate

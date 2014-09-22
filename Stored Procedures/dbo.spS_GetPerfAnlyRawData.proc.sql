@@ -66,12 +66,14 @@ SELECT	Id
 , NPEo2y_TD/100 AS NPEo2y_TD
 , NPEo3y_TD/100 AS NPEo3y_TD
 , NP_SI/100 AS NP_SI
+, NP_SLMC/100 AS NP_SLMC
 , NP2y_a/100 AS NP2y_a
 , NP3y_a/100 AS NP3y_a
 , NP5y_a/100 AS NP5y_a
 , NPEo2y_TD_a/100 AS NPEo2y_TD_a
 , NPEo3y_TD_a/100 AS NPEo3y_TD_a
 , NP_SI_a/100 AS NP_SI_a
+, NP_SLMC_a/100 AS NP_SLMC_a
 , Ben1m/ 100 AS Ben1m
 , Ben3m/100 AS Ben3m
 , Ben6m/100 AS Ben6m
@@ -94,6 +96,8 @@ SELECT	Id
 , BenEo3y_TD_a/100 AS BenEo3y_TD_a
 , Ben_SI/100 AS Ben_SI
 , Ben_SI_a/100 AS Ben_SI_a
+, Ben_SLMC/100 AS Ben_SLMC
+, Ben_SLMC_a/100 AS Ben_SLMC_a
 , PGavg_r1m/100 AS PGavg_r1m
 , PGavg_r3m/100 AS PGavg_r3m
 , PGavg_r6m/100 AS PGavg_r6m
@@ -116,6 +120,8 @@ SELECT	Id
 , PGavg_rEo3y_TD_a/100 AS PGavg_rEo3y_TD_a
 , PGavg_r_SI/100 AS PGavg_r_SI
 , PGavg_r_SI_a/100 AS PGavg_r_SI_a
+, PGavg_r_SLMC/100 AS PGavg_r_SLMC
+, PGavg_r_SLMC_a/100 AS PGavg_r_SLMC_a
 , PGmed_r1m/100 AS PGmed_r1m
 , PGmed_r3m/100 AS PGmed_r3m
 , PGmed_r6m/100 AS PGmed_r6m
@@ -138,6 +144,8 @@ SELECT	Id
 , PGmed_rEo3y_TD_a/100 AS PGmed_rEo3y_TD_a
 , PGmed_r_SI/100 AS PGmed_r_SI
 , PGmed_r_SI_a/100 AS PGmed_r_SI_a
+, PGmed_r_SLMC/100 AS PGmed_r_SLMC
+, PGmed_r_SLMC_a/100 AS PGmed_r_SLMC_a
 , ProdBetaYtD
 , ProdBeta1y
 , ProdBeta2y
@@ -151,6 +159,7 @@ SELECT	Id
 , ProdBetaEo2y_TD
 , ProdBetaEo3y_TD
 , ProdBeta_SI
+, ProdBeta_SLMC AS ProdBeta_SLMC
 , ProdAlphaYtD/100 AS ProdAlphaYtD
 , ProdAlpha1y/100 AS ProdAlpha1y
 , ProdAlpha2y/100 AS ProdAlpha2y
@@ -164,6 +173,7 @@ SELECT	Id
 , ProdAlphaEo2y_TD/100 AS ProdAlphaEo2y_TD
 , ProdAlphaEo3y_TD/100 AS ProdAlphaEo3y_TD
 , ProdAlpha_SI/100 AS ProdAlpha_SI
+, ProdAlpha_SLMC/100 AS ProdAlpha_SLMC
 , ProdTEYtD/100 AS ProdTEYtD
 , ProdTE1y/100 AS ProdTE1y
 , ProdTE2y/100 AS ProdTE2y

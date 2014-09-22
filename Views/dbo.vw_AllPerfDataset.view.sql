@@ -265,6 +265,7 @@ SELECT	Funds.Id
 	, (CASE WHEN Benchs.IsCash = 1 THEN NULL ELSE FundsA.ProdBetaEo2y_TD END) AS ProdBetaEo2y_TD
 	, (CASE WHEN Benchs.IsCash = 1 THEN NULL ELSE FundsA.ProdBetaEo3y_TD END) AS ProdBetaEo3y_TD
 	, (CASE WHEN Benchs.IsCash = 1 THEN NULL ELSE FundsA.ProdBeta_SI END) AS ProdBeta_SI
+	, (CASE WHEN Benchs.IsCash = 1 THEN NULL ELSE FundsPSLM.ProdBeta_SLMC END) AS ProdBeta_SLMC
 	
 	, FundsA.ProdStDYtD
 	, FundsA.ProdStD1y
@@ -307,6 +308,7 @@ SELECT	Funds.Id
 	, (CASE WHEN Benchs.IsCash = 1 THEN NULL ELSE FundsA.ProdAlphaEo2y_TD END) AS ProdAlphaEo2y_TD
 	, (CASE WHEN Benchs.IsCash = 1 THEN NULL ELSE FundsA.ProdAlphaEo3y_TD END) AS ProdAlphaEo3y_TD
 	, (CASE WHEN Benchs.IsCash = 1 THEN NULL ELSE FundsA.ProdAlpha_SI END) AS ProdAlpha_SI
+	, (CASE WHEN Benchs.IsCash = 1 THEN NULL ELSE FundsPSLM.ProdAlpha_SLMC END) AS ProdAlpha_SLMC
 
 	, IRRank.ProdIR1m
 	, IRRank.ProdIR3m
@@ -358,6 +360,21 @@ SELECT	Funds.Id
 	, IRRank.PGIRNumEo2y_TD
 	, IRRank.PGIRNumEo3y_TD
 	, IRRank.PGIRNum_SI
+	, FundsPSLM.NP_SLMC
+	, FundsPSLM.NP_SLMC_a
+	, FundsPSLM.ProdRank_SLMC
+	, PeersPSLM.PeersNo_SLMC
+	, PeersPSLM.PG1stQ_r_SLMC
+	, PeersPSLM.PG1stQ_r_SLMC_a
+	, PeersPSLM.PG3stQ_r_SLMC
+	, PeersPSLM.PG3stQ_r_SLMC_a
+	, PeersPSLM.PGavg_r_SLMC
+	, PeersPSLM.PGavg_r_SLMC_a
+	, PeersPSLM.PGmed_r_SLMC
+	, PeersPSLM.PGmed_r_SLMC_a
+	, BenchsPSLM.Ben_SLMC
+	, BenchsPSLM.Ben_SLMC_a
+
 
 FROM	tbl_Products AS Funds LEFT JOIN
 	tbl_Benchmarks AS Benchs ON (
@@ -421,7 +438,32 @@ FROM	tbl_Products AS Funds LEFT JOIN
 		DYf.FundId = Funds.Id
 		AND DYf.RefDate = FundP.RefDate
 		) LEFT JOIN
-	tbl_Desks AS Desks ON (Funds.OurTeam = Desks.Code)
+	tbl_Desks AS Desks ON (Funds.OurTeam = Desks.Code) LEFT JOIN
+	tbl_FundsPerfsSLMC AS FundsPSLM ON (
+		Funds.Id = FundsPSLM.FundId
+		AND FundP.RefDate = FundsPSLM.RefDate
+		) LEFT JOIN
+	tbl_BenchPerfsSLMC AS BenchsPSLM ON (
+		Funds.BenchmarkId = BenchsPSLM.BchkId
+		AND Funds.BaseCCYiso = BenchsPSLM.CCY
+		AND Funds.LastPMChange = BenchsPSLM.SLMCDate
+		AND FundP.RefDate = BenchsPSLM.RefDate
+		AND FundP.BizDate = BenchsPSLM.BizDate
+		) LEFT JOIN
+	tbl_PeerPerfsSLMC AS PeersPSLM ON (
+		PeersPSLM.Classification = Peers.CatSelector
+		AND PeersPSLM.Sector = (CASE Peers.CatSelector
+			WHEN 'MStar' THEN Peers.MStarCat
+			WHEN 'IMA' THEN Peers.IMACat
+			WHEN 'ABI' THEN Peers.ABICat
+			WHEN 'GIF' THEN Peers.GIFCat
+			WHEN 'Custom' THEN Peers.CustomCat
+			END)
+		AND Funds.LastPMChange = PeersPSLM.SLMCdate
+		AND Funds.BaseCCYiso = PeersPSLM.CCY
+		AND PeersPSLM.RefDate = FundP.RefDate
+		AND PeersPSLM.BizDate = FundP.BizDate
+		)
 
 
 WHERE	FundP.RefDate IS NOT NULL

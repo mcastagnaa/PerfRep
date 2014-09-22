@@ -27,7 +27,7 @@ SELECT	Bchmk.Code
 	, Bchmk.LongName
 	, Bchmk.FactsetCode
 	, Funds.BaseCCYiso AS CCY
-	, Funds.InceptionDate
+	, Funds.LastPMChange
 	, Bchmk.Id AS DbId
 
 FROM	tbl_Benchmarks AS Bchmk LEFT JOIN
@@ -39,6 +39,8 @@ WHERE	(Funds.SoldAs NOT IN('HF', 'Mandate')
 	OR Funds.SoldAs IS NULL)
 	AND Funds.Id IS NOT NULL
 	AND (Funds.InceptionDate < @RefDate)
+	AND (Funds.LastPMChange IS NOT NULL)
+	AND (Funds.InceptionDate < Funds.LastPMChange)
 	AND ((Funds.CloseDate IS NULL) OR (Funds.CloseDate > @RefDate))
 
 	
@@ -48,11 +50,11 @@ GROUP BY Bchmk.Code
 	, Bchmk.FactsetCode
 	, Bchmk.Id
 	, Funds.BaseCCYiso
-	, Funds.InceptionDate
+	, Funds.LastPMChange
 
 ORDER BY 	Bchmk.Code
 		, Funds.BaseCCYiso
-		, Funds.InceptionDate
+		, Funds.LastPMChange
 
 ----------------------------------------------------------------------------------
 GRANT EXECUTE ON dbo.spS_GetBchkListSLMCForRawData TO [OMAM\Compliance]

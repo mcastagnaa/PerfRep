@@ -17,6 +17,7 @@ USE PerfRep
 --EXEC dbo.spS_GetBchkListForRawData '2012 Aug 31'
 --EXEC dbo.spS_GetBchkListSIForRawData '2012 Aug 31'
 --EXEC dbo.spS_GetPeerGListForRawData '2012 Dec 31'
+--EXEC dbo.spS_GetPeerGListSLMCForRawData '2014 Aug 31'
 --EXEC dbo.spS_GetPeerGListSIForRawData '2012 Dec 31'
 --EXEC dbo.spS_GetFundsListForRawData '2012 Oct 31', 'IsraelsenVsPeers'
 
@@ -38,7 +39,7 @@ USE PerfRep
 
 --EXEC dbo.spU_StoreCEORepRawData '2013 Nov 30'
 --EXEC dbo.spS_GetCEOAuMOverall '2014 Jun 30', null, null
-EXEC dbo.spS_GetCEOPerfAll '2014 Jun 30', null, null
+--EXEC dbo.spS_GetCEOPerfAll '2014 Jun 30', null, null
 --EXEC dbo.spS_GetCEOPerfDesk '2014 Jan 31', null, null
 --EXEC dbo.spS_GetCEOCharts '2014 Jan 31', null, null
 --EXEC dbo.spS_GetCEOAuMTrack '2014 Jan 31', null, null

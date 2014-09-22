@@ -66,12 +66,13 @@ SELECT	Id
 , NPEo2y_TD/100 AS NPEo2y_TD
 , NPEo3y_TD/100 AS NPEo3y_TD
 , NP_SI/100 AS NP_SI
+, NP_SLMC/100 AS NP_SLMC
 , NP2y_a/100 AS NP2y_a
 , NP3y_a/100 AS NP3y_a
 , NP5y_a/100 AS NP5y_a
 , NPEo2y_TD_a/100 AS NPEo2y_TD_a
 , NPEo3y_TD_a/100 AS NPEo3y_TD_a
-, NP_SI_a/100 AS NP_SI_a
+, NP_SLMC_a/100 AS NP_SLMC_a
 , ((ProdTER/12 * 1) + NP1m)/100 AS GP1m
 , ((ProdTER/12 * 3) + NP3m)/100 AS GP3m
 , ((ProdTER/12 * 6) + NP6m)/100 AS GP6m
@@ -100,12 +101,16 @@ SELECT	Id
 , (ProdTER * 
 	CAST(DATEDIFF(dd, Inception, RefDate) AS float)/ 365
 	 + NP_SI)/100 AS GP_SI
+, (ProdTER * 
+	CAST(DATEDIFF(dd, LastPMChange, RefDate) AS float)/ 365
+	 + NP_SLMC)/100 AS GP_SLMC
 , (ProdTER + NP2y_a)/100 AS GP2y_a
 , (ProdTER + NP3y_a)/100 AS GP3y_a
 , (ProdTER + NP5y_a)/100 AS GP5y_a
 , (ProdTER + NPEo2y_TD_a)/100 AS GPEo2y_TD_a
 , (ProdTER + NPEo3y_TD_a)/100 AS GPEo3y_TD_a
 , (ProdTER + NP_SI_a)/100 AS GP_SI_a
+, (ProdTER + NP_SLMC_a)/100 AS GP_SLMC_a
 , (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRank1m ELSE ProdRank1m END) AS ProdRank1m
 , (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRank3m ELSE ProdRank3m END) AS ProdRank3m
 , (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRank6m ELSE ProdRank6m END) AS ProdRank6m
@@ -122,6 +127,7 @@ SELECT	Id
 , (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRankEo2y_TD ELSE ProdRankEo2y_TD END) AS ProdRankEo2y_TD
 , (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRankEo2y_TD ELSE ProdRankEo3y_TD END) AS ProdRankEo3y_TD
 , (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN ProdIRRank_SI ELSE ProdRank_SI END) AS ProdRank_SI
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN null ELSE ProdRank_SLMC END) AS ProdRank_SLMC
 , Ben1m/ 100 AS Ben1m
 , Ben3m/100 AS Ben3m
 , Ben6m/100 AS Ben6m
@@ -144,6 +150,8 @@ SELECT	Id
 , BenEo3y_TD_a/100 AS BenEo3y_TD_a
 , Ben_SI/100 AS Ben_SI
 , Ben_SI_a/100 AS Ben_SI_a
+, Ben_SLMC/100 AS Ben_SLMC
+, Ben_SLMC_a/100 AS Ben_SLMC_a
 , (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNum1m ELSE PeersNo1m END) AS PeersNo1m
 , (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNum3m ELSE PeersNo3m END) AS PeersNo3m
 , (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNum6m ELSE PeersNo6m END) AS PeersNo6m
@@ -160,6 +168,7 @@ SELECT	Id
 , (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNumEo2y_TD ELSE PeersNoEo2y_TD END) AS PeersNoEo2y_TD
 , (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNumEo3y_TD ELSE PeersNoEo3y_TD END) AS PeersNoEo3y_TD
 , (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN PGIRNum_SI ELSE PeersNo_SI END) AS PeersNo_SI
+, (CASE PrimaryObj WHEN 'IsraelsenVsPeers' THEN null ELSE PeersNo_SLMC END) AS PeersNo_SLMC
 /*, (CASE WHEN ProdRank1m IS NULL THEN NULL ELSE PeersNo1m END) AS PeersNo1m
 , (CASE WHEN ProdRank3m IS NULL THEN NULL ELSE PeersNo3m END) AS PeersNo3m
 , (CASE WHEN ProdRank6m IS NULL THEN NULL ELSE PeersNo6m END) AS PeersNo6m
@@ -198,6 +207,8 @@ SELECT	Id
 , PG1stQ_rEo3y_TD_a/100 AS PG1stQ_rEo3y_TD_a
 , PG1stQ_r_SI/100 AS PG1stQ_r_SI
 , PG1stQ_r_SI_a/100 AS PG1stQ_r_SI_a
+, PG1stQ_r_SLMC/100 AS PG1stQ_r_SLMC
+, PG1stQ_r_SLMC_a/100 AS PG1stQ_r_SLMC_a
 , PG3stQ_r1m/100 AS PG3stQ_r1m
 , PG3stQ_r3m/100 AS PG3stQ_r3m
 , PG3stQ_r6m/100 AS PG3stQ_r6m
@@ -220,6 +231,8 @@ SELECT	Id
 , PG3stQ_rEo3y_TD_a/100 AS PG3stQ_rEo3y_TD_a
 , PG3stQ_r_SI/100 AS PG3stQ_r_SI
 , PG3stQ_r_SI_a/100 AS PG3stQ_r_SI_a
+, PG3stQ_r_SLMC/100 AS PG3stQ_r_SLMC
+, PG3stQ_r_SLMC_a/100 AS PG3stQ_r_SLMC_a
 , PGavg_r1m/100 AS PGavg_r1m
 , PGavg_r3m/100 AS PGavg_r3m
 , PGavg_r6m/100 AS PGavg_r6m
@@ -242,6 +255,8 @@ SELECT	Id
 , PGavg_rEo3y_TD_a/100 AS PGavg_rEo3y_TD_a
 , PGavg_r_SI/100 AS PGavg_r_SI
 , PGavg_r_SI_a/100 AS PGavg_r_SI_a
+, PGavg_r_SLMC/100 AS PGavg_r_SLMC
+, PGavg_r_SLMC_a/100 AS PGavg_r_SLMC_a
 , PGmed_r1m/100 AS PGmed_r1m
 , PGmed_r3m/100 AS PGmed_r3m
 , PGmed_r6m/100 AS PGmed_r6m
@@ -264,6 +279,8 @@ SELECT	Id
 , PGmed_rEo3y_TD_a/100 AS PGmed_rEo3y_TD_a
 , PGmed_r_SI/100 AS PGmed_r_SI
 , PGmed_r_SI_a/100 AS PGmed_r_SI_a
+, PGmed_r_SLMC/100 AS PGmed_r_SLMC
+, PGmed_r_SLMC_a/100 AS PGmed_r_SLMC_a
 , ProdIR1m
 , ProdIR3m
 , ProdIR6m

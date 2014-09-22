@@ -24,7 +24,7 @@ DECLARE @FirstDate datetime
 
 IF @YtD = 0
 BEGIN
-	SET @FirstDate = Dateadd(mm, -12, @RefDate)
+	SET @FirstDate = Dateadd(mm, -11, @RefDate)
 END
 ELSE
 BEGIN
