@@ -72,6 +72,7 @@ SELECT	Id
 , NP5y_a/100 AS NP5y_a
 , NPEo2y_TD_a/100 AS NPEo2y_TD_a
 , NPEo3y_TD_a/100 AS NPEo3y_TD_a
+, NP_SI_a/100 AS NP_SI_a
 , NP_SLMC_a/100 AS NP_SLMC_a
 , ((ProdTER/12 * 1) + NP1m)/100 AS GP1m
 , ((ProdTER/12 * 3) + NP3m)/100 AS GP3m
@@ -337,7 +338,7 @@ WHERE	DSet.RefDate = @RefDate
 	AND CHARINDEX(DSet.SoldAS, 
 		(CASE @SoldAs
 			WHEN 1 THEN 
-			'_OEIC_NURS_UCITS4_LifePension_'
+			'_OEIC_NURS_AIF_UCITS4_LifePension_'
 			WHEN 2 THEN
 			'_HF_'
 			WHEN 3 THEN

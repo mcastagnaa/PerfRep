@@ -279,7 +279,7 @@ WHERE	DSet.RefDate = @RefDate
 	AND CHARINDEX(DSet.SoldAS, 
 		(CASE @SoldAs
 			WHEN 1 THEN 
-			'_OEIC_NURS_UCITS4_LifePension_'
+			'_OEIC_NURS_AIF_UCITS4_LifePension_'
 			WHEN 2 THEN
 			'_HF_'
 			WHEN 3 THEN

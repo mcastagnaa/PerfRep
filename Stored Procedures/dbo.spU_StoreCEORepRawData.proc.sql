@@ -36,7 +36,7 @@ CREATE TABLE #FullSet(
 	,InvManager 		NvarChar(100)
 	,OurTeam 			NvarChar(100)
 	,OurPM 				NVarChar(100)
-	,OurAnalyst 		NVarChar(100)
+--	,OurAnalyst 		NVarChar(100)
 	,SoldAs 			NvarChar(100)
 	,InAs 				NvarChar(100)
 	,IUProduct 			NvarChar(50)
@@ -63,12 +63,14 @@ CREATE TABLE #FullSet(
 	,NPEo2y_TD 		float	
 	,NPEo3y_TD 		float	
 	,NP_SI 			float
+	,NP_SLMC		float
 	,NP2y_a 		float
 	,NP3y_a 		float
 	,NP5y_a 		float
 	,NPEo2y_TD_a 		float
 	,NPEo3y_TD_a 		float
 	,NP_SI_a 		float
+	,NP_SLMC_a		float
 	,GP1m 			float
 	,GP3m 			float
 	,GP6m 			float
@@ -85,12 +87,14 @@ CREATE TABLE #FullSet(
 	,GPEo2y_TD 		float
 	,GPEo3y_TD 		float
 	,GP_SI 			float
+	,GP_SLMC		float
 	,GP2y_a 		float
 	,GP3y_a 		float
 	,GP5y_a 		float
 	,GPEo2y_TD_a 		float
 	,GPEo3y_TD_a 		float
 	,GP_SI_a 			float
+	,GP_SLMC_a			float
 	,ProdRank1m 		float
 	,ProdRank3m 		float
 	,ProdRank6m 		float
@@ -107,6 +111,7 @@ CREATE TABLE #FullSet(
 	,ProdRankEo2y_TD 	float
 	,ProdRankEo3y_TD 	float
 	,ProdRank_SI 		float
+	,ProdRank_SLMC 		float
 	,Ben1m 				float
 	,Ben3m 				float
 	,Ben6m 				float
@@ -129,6 +134,8 @@ CREATE TABLE #FullSet(
 	,BenEo3y_TD_a 		float
 	,Ben_SI				float
 	,Ben_SI_a 			float
+	,Ben_SLMC			float
+	,Ben_SLMC_a 		float
 	,PeersNo1m 			float
 	,PeersNo3m 			float
 	,PeersNo6m 			float
@@ -145,6 +152,7 @@ CREATE TABLE #FullSet(
 	,PeersNoEo2y_TD 	float
 	,PeersNoEo3y_TD 	float
 	,PeersNo_SI 		float
+	,PeersNo_SLMC 		float
 	,PG1stQ_r1m 		float
 	,PG1stQ_r3m 		float
 	,PG1stQ_r6m 		float
@@ -167,6 +175,8 @@ CREATE TABLE #FullSet(
 	,PG1stQ_rEo3y_TD_a 	float
 	,PG1stQ_r_SI 		float
 	,PG1stQ_r_SI_a 		float
+	,PG1stQ_r_SLMC		float
+	,PG1stQ_r_SLMC_a	float
 	,PG3stQ_r1m 		float
 	,PG3stQ_r3m 		float
 	,PG3stQ_r6m 		float
@@ -189,6 +199,8 @@ CREATE TABLE #FullSet(
 	,PG3stQ_rEo3y_TD_a 	float
 	,PG3stQ_r_SI 		float
 	,PG3stQ_r_SI_a 		float
+	,PG3stQ_r_SLMC 		float
+	,PG3stQ_r_SLMC_a 	float
 	,PGavg_r1m 			float
 	,PGavg_r3m 			float
 	,PGavg_r6m 			float
@@ -211,6 +223,8 @@ CREATE TABLE #FullSet(
 	,PGavg_rEo3y_TD_a 	float
 	,PGavg_r_SI 		float
 	,PGavg_r_SI_a 		float
+	,PGavg_r_SLMC 		float
+	,PGavg_r_SLMC_a 	float
 	,PGmed_r1m 			float
 	,PGmed_r3m 			float
 	,PGmed_r6m 			float
@@ -233,6 +247,8 @@ CREATE TABLE #FullSet(
 	,PGmed_rEo3y_TD_a	float
 	,PGmed_r_SI			float
 	,PGmed_r_SI_a		float
+	,PGmed_r_SLMC		float
+	,PGmed_r_SLMC_a		float
 	, ProdIR1m			float
 	, ProdIR3m			float
 	, ProdIR6m			float

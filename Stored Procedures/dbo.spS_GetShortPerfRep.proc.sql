@@ -35,6 +35,7 @@ SET @PrevDate = (SELECT MAX(RefDate) FROM tbl_FundsPerfs WHERE RefDate < @RefDat
 
 SELECT	V.Id
 		, V.FundName
+		, V.Company
 		, V.ShortCode
 		, P.PublicId As ISIN
 		, (CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 'Mixed investment' 
@@ -63,12 +64,14 @@ SELECT	V.Id
 		, V.NP3m
 		, V.NP1y
 		, V.NP3y_a
+		, V.NP5y_a
 
 		, (V.NP1m - V.Ben1m) AS RelPerf1m
 		, (V.NP3m - V.Ben3m) AS RelPerf3m
 		, (V.NP6m - V.Ben6m) AS RelPerf6m
         , (V.NP1y - V.Ben1y) AS RelPerf1y
 		, (V.NP3y_a - V.Ben3y_a) AS RelPerf3y
+		, (V.NP5y_a - V.Ben5y_a) AS RelPerf5y
 
 		, dbo.fn_GetQuartile((CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 
 					V.ProdIRRank1m/CAST(V.PGIRNum1m as float)
@@ -85,6 +88,10 @@ SELECT	V.Id
 		, dbo.fn_GetQuartile((CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 
 					V.ProdIRRank3y/CAST(V.PGIRNum3y as float)
 				ELSE V.ProdRank3y/CAST(V.PeersNo3y as float) END), 1) AS Quartile3y
+		, dbo.fn_GetQuartile((CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 
+					V.ProdIRRank5y/CAST(V.PGIRNum5y as float)
+				ELSE V.ProdRank5y/CAST(V.PeersNo5y as float) END), 1) AS Quartile5y
+
 
 		, (CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 
 					V.ProdIRRank1m/CAST(V.PGIRNum1m as float)
@@ -98,6 +105,9 @@ SELECT	V.Id
 		, (CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 
 					V.ProdIRRank3y/CAST(V.PGIRNum3y as float)
 				ELSE V.ProdRank3y/CAST(V.PeersNo3y as float) END) AS Percentile3y
+		, (CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 
+					V.ProdIRRank5y/CAST(V.PGIRNum5y as float)
+				ELSE V.ProdRank5y/CAST(V.PeersNo5y as float) END) AS Percentile5y
 
 		, ROUND(F.AuMGBP/1000000,0) AS AuM
 		, V.AuM AS MStarAuM
@@ -132,6 +142,7 @@ SELECT	V.Id
 		, (V.NP6m - V.Ben6m) AS RelPerf6m
         , (V.NP1y - V.Ben1y) AS RelPerf1y
 		, (V.NP3y_a - V.Ben3y_a) AS RelPerf3y
+		, (V.NP5y_a - V.Ben5y_a) AS RelPerf5y
 		, dbo.fn_GetQuartile((CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 
 					V.ProdIRRank1m/CAST(V.PGIRNum1m as float)
 				ELSE V.ProdRank1m/CAST(V.PeersNo1m as float) END), 1) AS Quartile1m
@@ -147,12 +158,17 @@ SELECT	V.Id
 		, dbo.fn_GetQuartile((CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 
 					V.ProdIRRank3y/CAST(V.PGIRNum3y as float)
 				ELSE V.ProdRank3y/CAST(V.PeersNo3y as float) END), 1) AS Quartile3y
+		, dbo.fn_GetQuartile((CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 
+					V.ProdIRRank5y/CAST(V.PGIRNum5y as float)
+				ELSE V.ProdRank5y/CAST(V.PeersNo5y as float) END), 1) AS Quartile5y
+
 		, ROUND(F.AuMGBP/1000000,0) AS AuM
 		, V.AuM AS MStarAuM
 		, V.NP1m 
 		, V.NP3m 
 		, V.NP1y 
 		, V.NP3y_a 
+		, V.NP5y_a 
 		, (CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 
 					V.ProdIRRank1m/CAST(V.PGIRNum1m as float)
 				ELSE V.ProdRank1m/CAST(V.PeersNo1m as float) END) AS Percentile1m
@@ -165,6 +181,9 @@ SELECT	V.Id
 		, (CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 
 					V.ProdIRRank3y/CAST(V.PGIRNum3y as float)
 				ELSE V.ProdRank3y/CAST(V.PeersNo3y as float) END) AS Percentile3y
+		, (CASE V.PrimaryObj WHEN 'IsraelsenVsPeers' THEN 
+					V.ProdIRRank5y/CAST(V.PGIRNum5y as float)
+				ELSE V.ProdRank5y/CAST(V.PeersNo5y as float) END) AS Percentile5y
 
 
 INTO	#PREV
@@ -186,8 +205,9 @@ WHERE	V.RefDate = @PrevDate
 		AND (P.IsCore = @Core OR @Core IS NULL)
 
 SELECT	L.Id
-		, L.FundName
+		, L.FundName + ' <i>(' + L.Company + ')</i>' AS FundName
 		, L.ShortCode
+		, L.Company
 		, L.ISIN
 		, L.IsSelect
 		, L.PrimaryObj
@@ -285,6 +305,22 @@ SELECT	L.Id
 						WHEN (L.RelPerf3y - P.RelPerf3y) = 0 THEN 'n' 
 						ELSE null END) AS RelPerf3yArrN
 
+		, L.RelPerf5y AS LastRelPerf5yN
+		, (CASE L.PrimaryObj WHEN 'Index' THEN L.RelPerf5y ELSE NULL END) AS LastRelPerf5y
+		, P.RelPerf5y AS PrevRelPerf5yN
+		, (CASE L.PrimaryObj WHEN 'Index' THEN P.RelPerf5y ELSE NULL END) AS PrevRelPerf5y
+		, (CASE L.PrimaryObj WHEN 'Index' THEN 
+				(CASE WHEN (L.RelPerf5y - P.RelPerf5y) > 0 THEN 'h' 
+						WHEN (L.RelPerf5y - P.RelPerf5y) < 0 THEN 'i' 
+						WHEN (L.RelPerf5y - P.RelPerf5y) = 0 THEN 'n' 
+						ELSE null END) ELSE NULL END) AS RelPerf5yArr
+		, (CASE WHEN (L.RelPerf5y - P.RelPerf5y) > 0 THEN 'h' 
+						WHEN (L.RelPerf5y - P.RelPerf5y) < 0 THEN 'i' 
+						WHEN (L.RelPerf5y - P.RelPerf5y) = 0 THEN 'n' 
+						ELSE null END) AS RelPerf5yArrN
+
+
+
 		, L.Quartile1m AS LastQuart1mN
 		, (CASE L.PrimaryObj WHEN 'Index' THEN NULL ELSE L.Quartile1m END) AS LastQuart1m
 		, P.Quartile1m AS PrevQuart1mN
@@ -334,6 +370,17 @@ SELECT	L.Id
 						WHEN (L.Quartile3y - P.Quartile3y) < 0 THEN 'h' 
 						WHEN (L.Quartile3y - P.Quartile3y) = 0 THEN 'n' 
 						ELSE null END) END) AS Quart3yArr
+
+		, L.Quartile5y AS LastQuart5yN
+		, (CASE L.PrimaryObj WHEN 'Index' THEN NULL ELSE L.Quartile5y END) AS LastQuart5y
+		, P.Quartile5y AS PrevQuart5yN
+		, (CASE L.PrimaryObj WHEN 'Index' THEN NULL ELSE P.Quartile5y END) AS PrevQuart5y
+		, (CASE L.PrimaryObj WHEN 'Index' THEN NULL ELSE
+				(CASE WHEN (L.Quartile5y - P.Quartile5y) > 0 THEN 'i' 
+						WHEN (L.Quartile5y - P.Quartile5y) < 0 THEN 'h' 
+						WHEN (L.Quartile5y - P.Quartile5y) = 0 THEN 'n' 
+						ELSE null END) END) AS Quart5yArr
+
 		, L.AuM AS LastAuM
 		, P.AuM AS PrevAuM
 		, (CASE WHEN (L.AuM - P.AuM) > 0 THEN 'h' 
@@ -373,6 +420,13 @@ SELECT	L.Id
 						WHEN (L.NP3y_a - P.NP3y_a) = 0 THEN 'n' 
 						ELSE null END) AS NP3yArr
 
+		, L.NP5y_a AS LastPerf5ya
+		, P.NP5y_a AS PrevPerf5ya
+		, (CASE WHEN (L.NP5y_a - P.NP5y_a) > 0 THEN 'h' 
+						WHEN (L.NP5y_a - P.NP5y_a) < 0 THEN 'i' 
+						WHEN (L.NP5y_a - P.NP5y_a) = 0 THEN 'n' 
+						ELSE null END) AS NP5yArr
+
 		, L.Percentile1m AS LastPerc1m
 		, P.Percentile1m AS PrevPerc1m
 		, (CASE WHEN (L.Percentile1m - P.Percentile1m) > 0 THEN 'i' 
@@ -399,6 +453,13 @@ SELECT	L.Id
 						WHEN (L.Percentile3y - P.percentile3y) < 0 THEN 'h' 
 						WHEN (L.Percentile3y - P.Percentile3y) = 0 THEN 'n' 
 						ELSE null END) AS Perc3yArr
+
+		, L.Percentile5y AS LastPerc5y
+		, P.Percentile5y AS PrevPerc5y
+		, (CASE WHEN (L.Percentile5y - P.Percentile5y) > 0 THEN 'i' 
+						WHEN (L.Percentile5y - P.percentile5y) < 0 THEN 'h' 
+						WHEN (L.Percentile5y - P.Percentile5y) = 0 THEN 'n' 
+						ELSE null END) AS Perc5yArr
 
 		, @RefDate AS RefDate
 		, @PrevDate AS PrevDate

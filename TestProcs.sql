@@ -5,7 +5,7 @@ USE PerfRep
 --SELECT * FROM vw_AllPeersDefs
 --SELECT * FROM vw_AllDYFields
 
---EXEC dbo.spS_GetPerfRawData '2013 Oct 31', 1, null, null
+--EXEC dbo.spS_GetPerfRawData '2014 Sep 30', 1, null, null
 --EXEC dbo.spS_GetPerfRawData_FundsOnly '2012 Nov 30', 1, null, null
 --EXEC dbo.spS_GetQuartilePerfData '2013 Mar 31', 1, null, null
 --EXEC dbo.spS_GetQuartilePerfDataRaw '2012 Dec 31'
@@ -37,7 +37,7 @@ USE PerfRep
 --EXEC spS_GetTCFObj '2013 Oct 31'
 --EXEC spS_GetPerf1mDataByFund '2013 Jan 31', 157
 
---EXEC dbo.spU_StoreCEORepRawData '2013 Nov 30'
+--EXEC dbo.spU_StoreCEORepRawData '2014 Aug 31'
 --EXEC dbo.spS_GetCEOAuMOverall '2014 Jun 30', null, null
 --EXEC dbo.spS_GetCEOPerfAll '2014 Jun 30', null, null
 --EXEC dbo.spS_GetCEOPerfDesk '2014 Jan 31', null, null
