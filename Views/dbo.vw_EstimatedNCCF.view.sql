@@ -47,7 +47,7 @@ SELECT	P.Id AS FundId
 		, ISNULL(Prev.AuMGBP, 0) AS PrevAuM
 		, ISNULL(Last.AuMGBP,0) - ISNULL(Prev.AuMGBP,0) AS Diff
 		, (CASE WHEN Last.AuMGBP IS NULL THEN -1
-				WHEN Prev.AuMGBP IS NULL THEN +1
+				WHEN Prev.AuMGBP IS NULL THEN 0 --+1
 				ELSE (Last.AuMGBP/Prev.AuMGBP - 1)
 				END) AS DiffPerc
 		, Perf.NP1m/100 AS FundPerf
@@ -75,7 +75,7 @@ SELECT	P.Id AS FundId
 		, ISNULL(Last.AuMGBP,0)/NULLIF(Prev.AuMGBP,0) - 1 - Perf.NP1m/100
 				AS NCCFEstimate
 		, (CASE WHEN Last.AuMGBP IS NULL THEN -Prev.AuMGBP
-				WHEN Prev.AuMGBP IS NULL THEN Last.AuMGBP
+				WHEN Prev.AuMGBP IS NULL THEN 0 --Last.AuMGBP
 				ELSE Prev.AuMGBP * (Last.AuMGBP/Prev.AuMGBP - 1 - Perf.NP1m/100)
 				END) AS NCCFEstimCash
 

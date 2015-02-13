@@ -2,7 +2,7 @@ USE PerfRep
 GO
 
 DECLARE @RefDate datetime
-SET @RefDate = '2013 Dec 31'
+SET @RefDate = '2014 Dec 31'
 
 DELETE
 FROM tbl_BenchPerfsDY
@@ -113,6 +113,7 @@ INSERT INTO tbl_PeersPerfsDY (
 				AND P.RefDate = PSI.RefDate
 			)
 	WHERE	P.RefDate = @RefDate
+			AND PSI.PeerId IS NOT NULL
 	)
 
 UPDATE tbl_PeersPerfsDY

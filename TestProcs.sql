@@ -20,6 +20,7 @@ USE PerfRep
 --EXEC dbo.spS_GetPeerGListSLMCForRawData '2014 Aug 31'
 --EXEC dbo.spS_GetPeerGListSIForRawData '2012 Dec 31'
 --EXEC dbo.spS_GetFundsListForRawData '2012 Oct 31', 'IsraelsenVsPeers'
+EXEC dbo.spS_GetBchkListSLMCForRawData '2014 Dec 31'
 
 --EXEC dbo.spS_GetScharts1yData '2012 Oct 31'
 --EXEC dbo.spS_GetScharts2yData '2012 Oct 31'

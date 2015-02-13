@@ -24,8 +24,8 @@ SET NOCOUNT ON;
 ----------------------------------------------------------------------------------
 
 SELECT	Bchmk.Code
-	, Bchmk.LongName
-	, Bchmk.FactsetCode
+	, MAX(Bchmk.LongName) AS LongName
+	, MAX(Bchmk.FactsetCode) AS FactsetCode
 	, Funds.BaseCCYiso AS CCY
 	, Funds.LastPMChange
 	, Bchmk.Id AS DbId
@@ -42,17 +42,14 @@ WHERE	(Funds.SoldAs NOT IN('HF', 'Mandate')
 	AND (Funds.LastPMChange IS NOT NULL)
 	AND (Funds.InceptionDate < Funds.LastPMChange)
 	AND ((Funds.CloseDate IS NULL) OR (Funds.CloseDate > @RefDate))
-
-	
+	--AND Bchmk.Id = 58
 
 GROUP BY Bchmk.Code
-	, Bchmk.LongName
-	, Bchmk.FactsetCode
-	, Bchmk.Id
 	, Funds.BaseCCYiso
 	, Funds.LastPMChange
+	, Bchmk.id
 
-ORDER BY 	Bchmk.Code
+ORDER BY 	Bchmk.Id
 		, Funds.BaseCCYiso
 		, Funds.LastPMChange
 

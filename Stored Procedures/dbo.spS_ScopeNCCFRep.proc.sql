@@ -34,7 +34,7 @@ FROM	tbl_FinanceAuM AS AuM LEFT JOIN
 			P.FinanceName = AuM.FinanceName
 			)
 WHERE	RefDate = @RefDate
-		AND P.ShortCode NOT IN ('SKINTGRW','SKDGEQ', 'SKHYLDBND',
+		AND P.ShortCode NOT IN ('SKINTGRW','SKGDEQ', 'SKHYLDBND',
 			'SKCBND', 'SKUKSEL', 'SKUKOPP', 'SKGBPBND', 'SKINTDIV',
 			'SKNEWMNG', 'SKGILT', 'SKUKINDX')
 		AND P.SelectRefISIN IS NULL
@@ -43,20 +43,19 @@ WHERE	RefDate = @RefDate
 ORDER BY AuMGBP DESC
 
 -- ad-hoc
-INSERT INTO #ScopeFunds
-SELECT P.Id AS FundId
-		, P.ShortCode
-		, P.FundName
-		, P.PublicId AS ISIN
-		, AuM.AuMGBP
-
-FROM	tbl_FinanceAuM AS AuM LEFT JOIN
-		tbl_Products AS P ON (
-			P.FinanceName = AuM.FinanceName
-			)
-WHERE	RefDate = @RefDate
-		AND P.ShortCode IN ('EQIO')
-
+--INSERT INTO #ScopeFunds
+--SELECT P.Id AS FundId
+--		, P.ShortCode
+--		, P.FundName
+--		, P.PublicId AS ISIN
+--		, AuM.AuMGBP
+--
+--FROM	tbl_FinanceAuM AS AuM LEFT JOIN
+--		tbl_Products AS P ON (
+--			P.FinanceName = AuM.FinanceName
+--			)
+--WHERE	RefDate = @RefDate
+--		AND P.ShortCode IN ('EQIO')
 
 --== Get the relevant peer group details
 SELECT	P.FundId
