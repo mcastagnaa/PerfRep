@@ -43,6 +43,8 @@ PIVOT (SUM(AuM) FOR OurTeam IN(
 					, [FIncome]
 					, [MultiAsset]
 					, [SystEq]
+					, [AsianEq]
+					, [PSnt]
 					)
 	) p
 
